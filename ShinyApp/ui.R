@@ -128,7 +128,15 @@ ui <- dashboardPage(
       # ------------------------------------------------------------------------
       # ------------------------------- CODING ---------------------------------
       
-      tabItem("Challenge", h2("Challenge content")),
+      tabItem("Challenge", 
+              
+              h2("Challenge content"),
+              
+              actionButton("next_pic", "Next"),
+              hr(),
+              uiOutput("image")
+              
+              ),
       
       tabItem("Output", h2("Output content")),
       
