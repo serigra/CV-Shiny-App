@@ -1,16 +1,12 @@
 
-library(shiny)
-library(shinydashboard)
-library(shinydashboardPlus)
-
-
 
 ui <- dashboardPage(
   
-  dashboardHeader(title = "Roche Interview"),
+  dashboardHeader(title = "Presentation"),
   
   # ============================================================================
   dashboardSidebar(
+    
     sidebarMenu(
       # icons: https://getbootstrap.com/docs/3.3/components/#glyphicons
       menuItem("About", tabName = "About", icon = icon("user", lib="glyphicon")),
@@ -29,6 +25,7 @@ ui <- dashboardPage(
     
     tabItems(
       
+      # ------------------------------------------------------------------------
       # ------------------------------ ABOUT -----------------------------------
       tabItem(tabName = "About", 
               
@@ -36,46 +33,40 @@ ui <- dashboardPage(
                 
                 # column widths need to add up to 12!
                 column(width = 4, # ............... column 1 ...................
-                       
                       userbox() # see global.R
-                         
                 ),
                 
                 column(width = 4, # ............... column 2 ...................
                        
-                       tabBox(
-                         title = "",
-                         # The id lets us use input$tabset1 on the server to find the current tab
-                         id = "tabset1", width = "250px", #height = "250px",
+                       tabBox(title = "", id = "tabset1", width = "250px",
+                         
                          tabPanel("Academia", icon = icon(name="graduation-cap"),
-                                  
                                   timeline_academia() # see global.R
-                                  
-                                  ),
-                         tabPanel("Experience", icon = icon(name="briefcase"),
-                                  
-                                  timeline_experience() # see global.R
-                                  
                                   ),
                          
-                         tabPanel("", icon = icon(name="house"),
-                                  
+                         tabPanel("Experience", icon = icon(name="briefcase"),
+                                  timeline_experience() # see global.R
+                                  ),
+                         
+                         tabPanel("CV", 
                                   plotOutput('plot_cv', height = "230px") # see server.R
-                                  
-                                  )
+                         )
+                         
                        )
                 ),
                 
                 
                 column(width = 4, # ............... column 3 ...................
                        
-                       box(title = 'Skills',
-                           icon = icon('screwdriver-wrench'),
-                           width = NULL,
-                           status = "primary",
-                           solidHeader = FALSE,
-                           collapsible = FALSE,
-                           plotOutput('plot_spider') # see server.R
+                       tabBox(title = "", id = "tabset2", width = "250px",
+                              
+                              tabPanel("Technical Skills", icon = icon(name="screwdriver-wrench"),
+                                       plotOutput('plot_spider_tech') # see server.R
+                              ),
+                              
+                              tabPanel("Statistical Skills", icon = icon(name="square-root-variable"),
+                                       plotOutput('plot_spider_stats') # see server.R
+                              )
                        ),
                        
                        box(title = "Languages", icon = icon('earth-americas'), 
@@ -90,8 +81,52 @@ ui <- dashboardPage(
       ), # tabItem end    
               
       
-      tabItem(tabName = "Motivation", h2("Motivation content")
-      ),
+      # ------------------------------------------------------------------------
+      # ------------------------------ MOTIVATION ------------------------------
+      
+      tabItem(tabName = "Motivation", 
+              
+              
+              h3("Where I am"),
+      
+              fluidRow(
+                column(
+                  width = 4, 
+                  tags$head(tags$style(HTML('.info-box {min-height: 150px;} .info-box-icon {height: 150px; line-height: 150px;} .info-box-content {padding-top: 0px; padding-bottom: 0px;}'))),
+                  infoBoxOutput("ordersbox", width = NULL)),
+                column(width = 4, infoBoxOutput("progressBox", width = NULL)),
+                column(width = 4, infoBoxOutput("approvalBox", width = NULL))
+                ),
+              
+              tags$hr(), # -----------------------------------------------------
+              
+              h3("Where I wanna go"),
+              
+              fluidRow(
+                column(width = 4, 
+                      tags$head(tags$style(HTML('.info-box {min-height: 150px;} .info-box-icon {height: 150px; line-height: 150px;} .info-box-content {padding-top: 0px; padding-bottom: 0px;}'))),
+                      infoBoxOutput("Boxfour", width = NULL)
+                      ),
+                column(width = 4, infoBoxOutput("Boxfive", width = NULL)),
+                column(width = 4, infoBoxOutput("Boxsix", width = NULL))
+              ),
+              
+              h3("Position Roche"),
+              
+              fluidRow(
+                column(width = 4, 
+                       tags$head(tags$style(HTML('.info-box {min-height: 150px;} .info-box-icon {height: 150px; line-height: 150px;} .info-box-content {padding-top: 0px; padding-bottom: 0px;}'))),
+                       infoBoxOutput("Boxseven", width = NULL)
+                       ),
+                column(width = 4, infoBoxOutput("Boxeight", width = NULL)),
+                column(width = 4, infoBoxOutput("Boxnine", width = NULL))
+              )
+              
+            ),
+      
+      
+      # ------------------------------------------------------------------------
+      # ------------------------------- CODING ---------------------------------
       
       tabItem("Challenge", h2("Challenge content")),
       
@@ -102,10 +137,6 @@ ui <- dashboardPage(
       
       
     ) # tabItems
-  ) #dashboardBody
-  
-  
-  
-  
+  ) # dashboardBody
 )
 

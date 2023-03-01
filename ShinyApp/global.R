@@ -1,6 +1,9 @@
-library(tidyverse)
-library(fmsb) # for radarchart / spider chart
 
+library(shiny)
+library(shinydashboard)
+library(shinydashboardPlus)
+library(tidyverse)
+library(fmsb) # radarchart / spider-plot
 
 
 
@@ -31,25 +34,25 @@ userbox <- function(){
       
       p(icon("pagelines"), "36"),
       p(icon("location-dot"), "Zurich"),
-      p(icon("heart"), "programming, visualizing, Suki (my dog) & nature"),
+      p(icon("heart"), "programming, visualizing, outdooring & Suky"),
       
       tags$hr(), # -------------------------------------------------------------
       
       fluidRow(column(width = 12,
               "I am a data scientist and part of the health services research 
                team of one of the biggest health insurance companies in Switzerland. 
-               By training, I am a biostatistician and biologist. 
-               My passion lies in R programming and expressing quantitative information
+               I am a biostatistician and biologist by training. 
+               And my passion lies in R programming and expressing quantitative information
                using numbers, models and visual displays."
                 )
                ),
       
       tags$hr(), # -------------------------------------------------------------
       
+      fluidRow(column(width = 12, p('Links'))),
+      
       fluidRow(
-        
-        p('Links'),
-        
+ 
         column(width = 3,
                shiny::actionButton(inputId='ab1', label="",
                                    icon = icon("globe"), 
@@ -159,7 +162,6 @@ timeline_experience <- function() {
 #                                CV plot
 # ==============================================================================
 
-
 # data for CV plot
 activity.studies <- c("Bsc Biology", "Msc Biology (Anthropology)", "Msc Biostatistics", "PhD Biology (Evolution)", "Academic Background")
 activity.work <- c("Biostatistician USZ, KSA", "Data Scientist - Sanitas", "Data Scientist - Helsana", "Work Experience")
@@ -215,6 +217,9 @@ cv_plot <- function(){
 #                               Spider Plot Skills
 # ==============================================================================
 
+
+# --------------------------- TECHNICAL SKILLS ---------------------------------
+
 # data
 scores <- data.frame(
   row.names = c("Sereina"),
@@ -230,23 +235,60 @@ max_min <- data.frame(
 )
 rownames(max_min) <- c("Max", "Min")
 
-df <- rbind(max_min, scores)
+d.skills.tech <- rbind(max_min, scores)
 
 
 # plot
-spider_plot <- function(){
+spider_plot_tech <- function(){
 
   op <- par(mar = c(0, 0, 0, 0))
-  fmsb::radarchart(df, axistype = 1,
+  fmsb::radarchart(d.skills.tech, axistype = 1,
                   pcol = "#00AFBB", pfcol = scales::alpha("#00AFBB", 0.5), 
                   plwd = 2, plty = 1,
                   # Customize the grid
                   cglcol = "grey", cglty = 1, cglwd = 0.8,
                   axislabcol = "grey", 
-                  vlcex = 1.1, vlabels = colnames(df),
+                  vlcex = 1.1, vlabels = colnames(d.skills.tech),
                   caxislabels = c(0, 1, 2, 3, 4, 5), 
                   title = NULL
                   )
+  par(op)
+  
+}
+
+
+# --------------------------- STATISTICAL SKILLS -------------------------------
+
+# data
+scores <- data.frame(
+  row.names = c("Sereina"),
+  LM = c(5), GLM = c(4), GLMM = c(3), GEE = c(3),
+  RF = c(2), Survival = c(2), PSM = c(3.5)
+)
+
+max_min <- data.frame(
+  LM = c(5, 0), GLM = c(5, 0), GLMM = c(5, 0),
+  GEE = c(5, 0), RF = c(5, 0), Survival = c(5, 0), PSM = c(5, 0)
+)
+rownames(max_min) <- c("Max", "Min")
+
+d.skills.stats <- rbind(max_min, scores)
+
+
+# plot
+spider_plot_stats <- function(){
+  
+  op <- par(mar = c(0, 0, 0, 0))
+  fmsb::radarchart(d.skills.stats, axistype = 1,
+                   pcol = "#00AFBB", pfcol = scales::alpha("#00AFBB", 0.5), 
+                   plwd = 2, plty = 1,
+                   # Customize the grid
+                   cglcol = "grey", cglty = 1, cglwd = 0.8,
+                   axislabcol = "grey", 
+                   vlcex = 1, vlabels = colnames(d.skills.stats),
+                   caxislabels = c(0, 1, 2, 3, 4, 5), 
+                   title = NULL
+  )
   par(op)
   
 }
