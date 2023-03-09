@@ -3,9 +3,102 @@ library(shiny)
 library(shinydashboard)
 library(shinydashboardPlus)
 library(tidyverse)
+library(magrittr)
 library(fmsb) # radarchart / spider-plot
+library(plotly)
+
+# ==============================================================================
+#                        DATA for Programming Challenge
+# ==============================================================================
+
+load('/Users/sereina/Documents/03_Projects/04_Interviews/02_Roche/CV Shiny App/data_embryotox.Rda')
+
+d.acute <- readxl::read_xlsx('/Users/sereina/Documents/03_Projects/04_Interviews/02_Roche/CV Shiny App/Test_data.xlsx', sheet = 'acute')
+d.chronic <- readxl::read_xlsx('/Users/sereina/Documents/03_Projects/04_Interviews/02_Roche/CV Shiny App/Test_data.xlsx', sheet = 'chronic')
+
+d.chronic %<>%
+  filter(!is.na(ATC)) %>%
+  mutate(Pre = as.numeric(str_replace(Pre, " \\s*\\([^\\)]+\\)", "")),
+         T1 = as.numeric(str_replace(T1, " \\s*\\([^\\)]+\\)", "")),
+         T2 = as.numeric(str_replace(T2, " \\s*\\([^\\)]+\\)", "")),
+         T3 = as.numeric(str_replace(T3, " \\s*\\([^\\)]+\\)", "")),
+         `T1-T3` = as.numeric(str_replace(`T1-T3`, " \\s*\\([^\\)]+\\)", ""))
+  )
+
+d.acute.chronic <- rbind(d.acute, d.chronic)
+
+d.acute.chronic %<>%
+  pivot_longer(., cols = c('Pre', 'T1', 'T2', 'T3', 'T1-T3'), names_to = "Time", values_to = "Prescriptions")
+
+d.acute.chronic %<>%
+  left_join(d.embryotox, by = c('Drug substance' = 'agent')) %>% 
+    mutate(erfahrungsumfang = case_when(erfahrungsumfang %in% c('KEINE', 'KEINER') ~ 'no',
+                                        erfahrungsumfang == 'GERING' ~ 'few',
+                                        erfahrungsumfang == 'MITTEL' ~ 'medium',
+                                        erfahrungsumfang == 'HOCH' ~ 'high',
+                                        erfahrungsumfang == 'SEHR HOCH' ~ 'very high',
+                                        TRUE ~ '-'
+                                        )
+    )
+
+d.acute.chronic.prescr <- d.acute.chronic %>%
+  filter(Time == 'T1-T3') %>%
+  mutate(percentage = round(100*(Prescriptions/Total_pregnancies)), 2) %>%
+  select(-Time, -Total_pregnancies) %>%
+  arrange(-Prescriptions)
+# d.acute <- readxl::read_xlsx('/Users/sereina/Documents/03_Projects/04_Interviews/02_Roche/CV Shiny App/Test_data.xlsx', sheet = 'Tabelle2')
+# 
+# d.acute %<>%
+#   pivot_longer(., cols = c('Pre', 'T1', 'T2', 'T3', 'T1-T3'), 
+#                names_to = "Time", 
+#                values_to = "Prescriptions")
+# 
+# d.acute %<>%
+#   left_join(d.embryotox, by = c('Drug substance' = 'agent')) %>% 
+#   mutate(erfahrungsumfang = case_when(erfahrungsumfang %in% c('KEINE', 'KEINER') ~ 'no',
+#                                       erfahrungsumfang == 'GERING' ~ 'few',
+#                                       erfahrungsumfang == 'MITTEL' ~ 'medium',
+#                                       erfahrungsumfang == 'HOCH' ~ 'high',
+#                                       erfahrungsumfang == 'SEHR HOCH' ~ 'very high',
+#                                       TRUE ~ 'no information on embryotox.de'
+#                                       )
+#   )
+# 
+# d.acute.prescr <- d.acute %>%
+#                     filter(Time == 'T1-T3') %>%
+#                     select(-Time) %>%
+#                     arrange(-Prescriptions)
+# 
 
 
+# ==============================================================================
+#                                 MODAL Function
+# ==============================================================================
+
+mymodal <- function (..., title = NULL, footer = modalButton("Dismiss"), 
+                     size = c("m", "s", "l"), easyClose = FALSE, fade = TRUE, idcss = "") 
+{
+  size <- match.arg(size)
+  cls <- if (fade) 
+    "modal fade"
+  else "modal"
+  div(id = "shiny-modal", class = cls, tabindex = "-1", `data-backdrop` = if (!easyClose) 
+    "static", `data-keyboard` = if (!easyClose) 
+      "false", div(class = paste("modal-dialog", idcss), class = switch(size, 
+                                                                        s = "modal-sm", 
+                                                                        m = NULL, 
+                                                                        l = "modal-lg"), 
+                   div(class = "modal-content", 
+                       if (!is.null(title)) 
+                         div(class = "modal-header", tags$h4(class = "modal-title", 
+                                                             title)
+                         ), 
+                       div(class = "modal-body", ...), 
+                       if (!is.null(footer)) 
+                         div(class = "modal-footer", footer))
+      ), 
+    tags$script("$('#shiny-modal').modal().focus();"))
+}
 
 # ==============================================================================
 #                                 USER BOX
