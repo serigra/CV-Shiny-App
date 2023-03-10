@@ -43,7 +43,7 @@ d.acute.chronic %<>%
 
 d.acute.chronic.prescr <- d.acute.chronic %>%
   filter(Time == 'T1-T3') %>%
-  mutate(percentage = round(100*(Prescriptions/Total_pregnancies)), 2) %>%
+  mutate(percentage = paste0(round(100*(Prescriptions/Total_pregnancies), 0), '%')) %>%
   select(-Time, -Total_pregnancies) %>%
   arrange(-Prescriptions)
 # d.acute <- readxl::read_xlsx('/Users/sereina/Documents/03_Projects/04_Interviews/02_Roche/CV Shiny App/Test_data.xlsx', sheet = 'Tabelle2')
@@ -132,11 +132,13 @@ userbox <- function(){
       tags$hr(), # -------------------------------------------------------------
       
       fluidRow(column(width = 12,
-              "I am a data scientist and part of the health services research 
-               team of one of the biggest health insurance companies in Switzerland. 
-               I am a biostatistician and biologist by training. 
-               And my passion lies in R programming and expressing quantitative information
-               using numbers, models and visual displays."
+                      "initiative · proactive · creative · curious
+                      · exact · passionate · integer · social · empathic"
+              # I am a data scientist and part of the health services research 
+              #  team of one of the biggest health insurance companies in Switzerland. 
+              #  I am a biostatistician and biologist by training. 
+              #  And my passion lies in R programming and expressing quantitative information
+              #  using numbers, models and visual displays."
                 )
                ),
       
@@ -198,21 +200,20 @@ timeline_academia <- function() {
   timelineBlock(width = "250px", reversed = FALSE,
     
     timelineLabel('2013 - 2017', color = "gray"),
-    timelineItem(title = "PhD Biology",icon = icon("book"),
-                 color = "gray",
-                "Social and ecological aspects of brain size evolution.",
-      
-                br(), br(),
-      
-                appButton(inputId = "ReadMore", label = "Read more")
+    timelineItem(title = "PhD Biology",#icon = icon("book"),
+                 #color = "gray",
+                "Thesis: Social and ecological aspects of brain size evolution."
+                #br(), br(),
+                #appButton(inputId = "ReadMore", label = "Read more")
                 ),
     
     timelineLabel('2012 - 2015', color = "gray"),
     timelineItem(title = "Msc Biostatistics", footer = "",
-                 "Thesis: Phylogenetic comparative methhods."),
+                 "Thesis: Phylogenetic comparative methhods for discrete responses in Evolutionary Biology."),
     
     timelineLabel('2010 - 2012', color = "gray"),
-    timelineItem(title = "Msc Biology (Anthropology)"),
+    timelineItem(title = "Msc Biology", footer = "",
+                 "Thesis: Cooperative breeding and the Evolution of Brain Size in Birds."),
   
     timelineLabel('2007 - 2010', color = "gray"),
     timelineItem(title = "Bsc Biology")
@@ -239,12 +240,16 @@ timeline_experience <- function() {
     
     timelineLabel('2017-2019', color = "gray"),
     timelineItem(title = "Data Scientist @ Sanitas",
-                 "Lead, design and implementation of advanced analytical projects. 
+                 "Lead, design and implementation of advanced analytical projects, 
+                 with a focus on the operational business. 
                  In-house consulting and teaching of statistical and analytical skills."
                 ),
     
     timelineLabel('2012 - 2016 | projectwise', color = "gray"),
-    timelineItem(title = "Biostatistican @ USZ, KSA")
+    timelineItem(title = "Biostatistican @ USZ, KSA",
+                 "Design, implementation of and consulting on statistics and 
+                 data analyses for clinical trials/ scientific publications."
+                 )
   )
 
 }
@@ -293,8 +298,8 @@ cv_plot <- function(){
     ggplot2::theme_minimal() +
     ggplot2::scale_colour_manual(values = wesanderson::wes_palette("Darjeeling1")) +
     ggplot2::theme(text = element_text(family = "sans"),
-                   axis.text.x = element_text(angle = 45, vjust = -0.1),
-                   axis.text.y.left = element_text(face = ifelse(activity == chapter, yes = "bold", no = "plain")),
+                   axis.text.x = element_text(angle = 45, vjust = -0.1, size = 12),
+                   axis.text.y.left = element_text(face = ifelse(activity == chapter, yes = "bold", no = "plain"), size = 14),
                    panel.grid.minor.x = element_blank(),
                    panel.grid.minor.y = element_blank(),
                    panel.grid.major.y = element_blank(),

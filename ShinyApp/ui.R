@@ -13,7 +13,7 @@ ui <- dashboardPage(
       menuItem("Motivation", tabName = "Motivation", icon = icon(name="star", lib="glyphicon")),
       menuItem("Coding", tabName = "Coding", icon = icon(name="console", lib="glyphicon"),
                menuSubItem("Challenge", tabName = "Challenge"),
-               menuSubItem("Output", tabName = "Output"),
+               menuSubItem("Results", tabName = "Output"),
                menuSubItem("Source code", tabName = "Source_code") 
               )
     )
@@ -32,11 +32,11 @@ ui <- dashboardPage(
               fluidRow(
                 
                 # column widths need to add up to 12!
-                column(width = 4, # ............... column 1 ...................
+                column(width = 3, # ............... column 1 ...................
                       userbox() # see global.R
                 ),
                 
-                column(width = 4, # ............... column 2 ...................
+                column(width = 5, # ............... column 2 ...................
                        
                        tabBox(title = "", id = "tabset1", width = "250px",
                          
@@ -49,7 +49,7 @@ ui <- dashboardPage(
                                   ),
                          
                          tabPanel("CV", 
-                                  plotOutput('plot_cv', height = "230px") # see server.R
+                                  plotOutput('plot_cv', height = "270px") # see server.R
                          )
                          
                        )
@@ -129,7 +129,7 @@ ui <- dashboardPage(
                            fluidRow( 
                              tags$div(
                                tags$ul(
-                                 
+                                 tags$li("Being at the pulse of medical progress"),  
                                  tags$li("Medication"),  
                                  # something which fascinates me, very often we thinking to easy of it (we take it and it works),
                                  # but its so much more complex than that, thinking of interactions with other medication,
@@ -181,11 +181,12 @@ ui <- dashboardPage(
                            
                            fluidRow( 
                              # analytical challenges / problem solving/  -->  taking things apart and figuring out how they work
-                             # joy of continuous learning --> Book Less bad programming
+                             # joy of continuous learning --> Book Less bad programming, exploring new data sources and applying new methodologies
                              # nice balance between theory and practice
                              # Breaking down complex information into easy-to-understand content
                              tags$div(
                                tags$ul(
+                                 tags$li("generating data driven insights"),
                                  tags$li("analytical challenges & problem solving"),
                                  tags$li("continuous learning"),
                                  tags$li("balance between theory and practice"),
@@ -206,12 +207,82 @@ ui <- dashboardPage(
       
       tabItem("Challenge", 
               
-              h2("Challenge content"),
-              
+              h2("Medication during pregnancy"),
+              #  
               actionButton("next_pic", "Next"),
               hr(),
               uiOutput("image")
               
+              
+              
+              # fluidRow(
+              #   column(2),
+              #   column(8, 
+              #          box(width= 12, title = h3('Medication during pregnancy', align = 'center'),
+              #               
+              #               column(6, br(), br(),
+              #                      fluidRow(align = 'center', img(src='pregnancy_0.png', width = 270))
+              #                       ),
+              # 
+              #               column(6,
+              #                      h4('Motivation'),
+              #                      tags$div(
+              #                        tags$ul(
+              #                          tags$li("pregnant women/ unborn childern = sensitive group of patients"),
+              #                          tags$li("low empirical evidence"),
+              #                          tags$li("Switzerland: missing overview")
+              #                        )
+              #                      ),
+              #                      
+              #                      h4('Aim'),
+              #                      tags$div(
+              #                        tags$ul(
+              #                          tags$li("What medications are prescribed during pregnancy (acute & chronic conditions)?"),
+              #                          tags$li("Special focus on potentially teratogenic/fetotoxic drugs"),
+              #                          tags$li("When and how often?")
+              #                               )
+              #                           )
+              #                      
+              #                       )
+              # 
+              #             )
+              # 
+              #          ),
+              #   column(2)
+              # 
+              # ),
+              
+              # br(), br(), br(),
+              # 
+              # fluidRow(column(4, 
+              #                 box(width = 12, title = h4('Identification pregnancy period', align = 'center'),
+              #                     collapsible = TRUE, collapsed = TRUE,
+              #                     fluidRow(align = 'center', img(src='challenge_1.png', width = 110)),
+              #                     br(),
+              #                     fluidRow(align = 'center', actionButton("more1", "Show more"))
+              #                     )
+              #                 ),
+              #          
+              #          column(4, 
+              #                 box(width = 12, title = h4('Identification teratogenic drugs', align = 'center'),
+              #                     collapsible = TRUE, collapsed = TRUE,
+              #                     fluidRow(align = 'center', img(src='challenge_2.png', width = 130)),
+              #                     br(),
+              #                     fluidRow(align = 'center', actionButton("more2", "Show more"))
+              #                     )
+              #          ),
+              #          
+              #          column(4, 
+              #                 box(width = 12, title = h4('Presentation of results', align = 'center'),
+              #                     collapsible = TRUE, collapsed = TRUE,
+              #                     fluidRow(align = 'center', img(src='challenge_3.png', width = 110)),
+              #                     br(),
+              #                     fluidRow(align = 'center', actionButton("more3", "Show more"))
+              #                     )
+              #                 )
+              #          
+              #          )
+ 
               ),
       
       
@@ -220,50 +291,71 @@ ui <- dashboardPage(
               
               fluidRow(
                     
-                column(3,  #helpText("Choose top N prescribed drug agents."),
-                    # sliderInput("top",
-                    #             "Top N:",
-                    #             min = 1,
-                    #             max = 33,
-                    #             value = 10)
-                    radioButtons(
-                      "top",
-                      "Conditions",
-                      choices = unique(d.acute.chronic$Type),
-                      selected = 'acute',
-                      inline = FALSE
-                    )
-                  ),
+                # column(1,  
+                #     radioButtons(
+                #       "top",
+                #       "Conditions",
+                #       choices = unique(d.acute.chronic$Type),
+                #       selected = 'acute',
+                #       inline = FALSE
+                #     )
+                #   ),
                 
-                column(3,
+                column(4,
                        
-                       box(
+                       box(title = 'Publications',
                          
-                         title = 'Total no. pregnancies (2014-2018)',
+                         #title = 'Total no. pregnancies (2014-2018)',
                          solidHeader = FALSE,
                          collapsible = FALSE,
                          width = NULL,
                          #status = 'primary',
-                         
-                         h4('Total no. prescriptions'),
                          fluidRow(column(width = 12,
-                                         'lsdjfks'
+                         tags$div(
+                           tags$ul(
+                             tags$li("Spoendlin et al. 2021"),
+                             tags$li("Gerbier et al. 2021, 2022")
+                           )
+                         )
+                         )),
+                         
+                         tags$hr(),
+                         
+                         h4("Data"),
+                         fluidRow(column(width = 12,
+                                         '2014 - 2018, extrapolated to whole of Switzerland'
+                         )
+                         ),
+                         
+                         tags$hr(),
+                         
+                         h4('Total no. pregnancies'),
+                         fluidRow(column(width = 12,
+                                         "369'371"
                          )
                          ),
                          
                          tags$hr(), # -----------------------------------------
-                         h4("Balasdfkj"),
+                         #h4("Conditions"),
                          fluidRow(column(width = 12,
-                                         'alskdfj'
-                         )
-                         ),
-                         
-                         tags$hr(), # -----------------------------------------
-                         h4('asldkfjsldkj'),
-                         fluidRow(column(width = 12,
-                                         'sdlfkjsd'
+                                         radioButtons(
+                                           "top",
+                                           h4("Conditions"),
+                                           choices = unique(d.acute.chronic$Type),
+                                           selected = 'acute',
+                                           inline = FALSE
+                                         )
                          )
                          )#,
+                         
+                         
+                         
+                         # tags$hr(), # -----------------------------------------
+                         # h4('asldkfjsldkj'),
+                         # fluidRow(column(width = 12,
+                         #                 'sdlfkjsd'
+                         # )
+                         # )#,
                          
                          # tags$hr(), # -----------------------------------------
                          # h4('Pregnancy experience'),
@@ -275,38 +367,37 @@ ui <- dashboardPage(
                        )
                 ),
                   
-                column(6, plotlyOutput("barPlot1")
+                column(8, plotlyOutput("barPlot1")
                 )
               ),
               
-              br(), br(),
-              
-              tags$hr(), 
-              
-              br(), br(),
+              br(), 
 
              fluidRow(
 
-                 column(3,
-                    #helpText("Choose ATC to display distribution of prescriptions during pregnancy."),
-                    selectInput('ATC', 'Drug Substance (ATC)', unique(d.acute.chronic$ATC), selected = 'N02BE01')
-                  ),
+                 # column(3,
+                 #    #helpText("Choose ATC to display distribution of prescriptions during pregnancy."),
+                 #    selectInput('ATC', 'Drug Substance (ATC)', unique(d.acute.chronic$ATC), selected = 'N02BE01')
+                 #  ),
 
-                 column(3,
+                 column(4,
                   
                        box(
                  
-                           title = textOutput("substanz"),
+                           title = 'Drug substance (ATC)', #textOutput("substanz"),
                            solidHeader = FALSE,
                            collapsible = FALSE,
                            width = NULL,
                            #status = 'primary',
-                 
-                           h4('Total no. prescriptions'),
-                           fluidRow(column(width = 12,
-                                           textOutput("prescr")
-                          )
-                          ),
+                           selectInput('ATC', '', unique(d.acute.chronic$ATC), selected = 'N02BE01'),
+                           h5(textOutput("substanz")),
+                           p(textOutput("prescr")),
+                           #tags$hr(),
+                           # h4('Total no. prescriptions'),
+                           # fluidRow(column(width = 12,
+                           #                 textOutput("prescr")
+                           #                 )
+                           #          ),
 
                           tags$hr(), # -----------------------------------------
                           h4("Indications"),
@@ -332,7 +423,7 @@ ui <- dashboardPage(
                          )
                 ),
                   
-                column(6, plotlyOutput("barPlot2")
+                column(8, plotlyOutput("barPlot2")
 
                        # box(
                        # 

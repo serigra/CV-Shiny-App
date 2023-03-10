@@ -25,81 +25,6 @@ server <- function(input, output) {
   })
   
   
-  # =========================== Boxes in MOTIVATION ============================
-  
-  # 1. Box
-  output$ordersbox <- renderInfoBox({
-    infoBox(
-      "Stakeholder", "120", icon = icon("users"),
-      color = "light-blue", fill =TRUE, width = 3
-    )
-  }) 
-  
-  # 2. Box
-  output$progressBox <- renderInfoBox({
-    invalidateLater(as.integer(1000))
-    infoBox("Time",
-            paste(format(Sys.time(), "%H:%M:%S"), "h"), 
-            icon = icon("time", lib = "glyphicon"),
-            color = "teal", fill =TRUE, width = 3
-    )
-  })
-  
-  # 3. Box
-  output$approvalBox <- renderInfoBox({
-    infoBox(
-      "KPI 2", "120", icon = icon("check-square"),
-      color = "yellow", fill =TRUE,width = 3
-    )
-  })
-  
-  # 4. Box
-  output$Boxfour <- renderInfoBox({
-    infoBox(
-      "Bla", "120", icon = icon("check-square"),
-      color = "red", fill =TRUE,width = 3
-    )
-  })
-  
-  # 5. Box
-  output$Boxfive <- renderInfoBox({
-    infoBox(
-      "Bli", "120", icon = icon("check-square"),
-      color = "blue", fill =TRUE,width = 3
-    )
-  })
-  
-  # 6. Box
-  output$Boxsix <- renderInfoBox({
-    infoBox(
-      "Blu", "120", icon = icon("check-square"),
-      color = "orange", fill =TRUE,width = 3
-    )
-  })
-  
-  # 7. Box
-  output$Boxseven <- renderInfoBox({
-    infoBox(
-      "Blu", "120", icon = icon("check-square"),
-      color = "green", fill =TRUE,width = 3
-    )
-  })
-  
-  # 8. Box
-  output$Boxeight <- renderInfoBox({
-    infoBox(
-      "Blu", "120", icon = icon("check-square"),
-      color = "green", fill =TRUE,width = 3
-    )
-  })
-  
-  # 9. Box
-  output$Boxnine <- renderInfoBox({
-    infoBox(
-      "Blu", "120", icon = icon("check-square"),
-      color = "green", fill =TRUE,width = 3
-    )
-  })
   
   
   # ================== reactive output in coding challenge =====================
@@ -119,35 +44,52 @@ server <- function(input, output) {
   
   rv <- reactiveValues()
   
-  my_images <- c("pregnancy_1.png", "pregnancy_2.png")
+  my_images <- c("pregnancy_111.png", "pregnancy_2222.png")
 
   output$image <- renderUI({
     
-    if(rv$img == 'pregnancy_2.png'){
-      fluidRow(column(width = 6,
-                      img(src=rv$img, width = 790)), 
-               column(width = 6,
-                      br(), br(),
-                      fluidRow(rv$button),
-                      br(), br(), br(), br(), 
-                      fluidRow(rv$button2),
-                      br(), br(), br(), br(), 
-                      fluidRow(rv$button3)
-                      )
+    if(rv$img == 'pregnancy_2222.png'){
+      
+      fluidRow(
+        
+        fluidRow(
+      column(2), 
+      column(8, 
+             fluidRow(
+            column(width = 6, br(), fluidRow(img(src=rv$img, width = 790))),
+            column(width = 6)
+              )
+      ),
+      column(2)
+      ),
+     
+      fluidRow(
+      column(3),
+      
+      column(2, rv$button),
+      
+      column(3, rv$button2),
+     
+      column(2, rv$button3),
+      column(2)
+      )
+
       )
       
     }else{
-      fluidRow(column(width = 6,
-                      img(src=rv$img, width = 450)), 
-               column(width = 6,
-                      br(), br(), 
-                      fluidRow(rv$button),
-                      br(), br(), br(), br(), 
-                      fluidRow(rv$button2),
-                      br(), br(), br(), br(), 
-                      fluidRow(rv$button3)
+      
+      fluidRow(
+      column(2) ,
+      column(8, 
+      fluidRow(column(width = 6, br(),
+                      fluidRow(img(src=rv$img, width = 790))), 
+               column(width = 6
+                      
                       )
               )
+      ),
+      column(2)
+      )
       }
 
     })
@@ -159,8 +101,10 @@ server <- function(input, output) {
 
     if (nclick == 0) { # initial display
       rv$img = my_images[1]
-    }else if (nclick > 0 & nclick < length(my_images)+1) {
-      rv$img <- my_images[nclick]
+    # }else if (nclick > 0 & nclick < length(my_images)+1) {
+    #   rv$img <- my_images[nclick+1]
+    }else if (nclick >= 1) {
+      rv$img <- my_images[2]
     }else{
       rv$img <- my_images[length(my_images)] # show the last one
     }
@@ -172,11 +116,8 @@ server <- function(input, output) {
     
     nclick <- sum(as.numeric(input$next_pic))
     
-    if (nclick > length(my_images)) {
-      # tags$style(
-      #   type = 'text/css',
-      #   '.modal-dialog.test{ width: fit-content !important; }'
-      # )
+    #if (nclick > length(my_images)) {
+      if (nclick >= 1) {
       rv$button <- actionButton("more1", "Read more") #'some text'
       rv$button2 <- actionButton("more2", "Read more") #'some text'
       rv$button3 <- actionButton("more3", "Read more") #'some text'
@@ -198,7 +139,7 @@ server <- function(input, output) {
     
     showModal(modalDialog(
       uiOutput("pregnancyalgo"),
-      footer = 'Thats plot 1',
+      footer = '',
       easyClose = TRUE,
       size = 'l'
     ))
@@ -216,36 +157,52 @@ server <- function(input, output) {
     
     showModal(modalDialog(
       uiOutput("embryotox"),
-      footer = 'embryotox.de',
+      footer = '',
       easyClose = TRUE,
       size = 'l'
     ))
   })
   
+  # =========================== pop up window III ==============================
   
+  output$agents <- renderUI({
+    img(src="agents.png", width = 800)
+  })
+  
+  
+  observeEvent(input$more3, {
+    
+    showModal(modalDialog(
+      uiOutput("agents"),
+      footer = '',
+      easyClose = TRUE,
+      size = 'l'
+    ))
+  })
   
   # ----------------------------- Plot 1 -------------------------------------
   output$barPlot1 <- renderPlotly({
- 
-    # data2 <- d.acute.prescr %>%
-    #               arrange(-Prescriptions) %>% 
-    #               top_n(., input$top)
     
     data2 <- d.acute.chronic.prescr %>%
       filter(Type == input$top) %>%
-      select(ATC, `Drug substance`, Prescriptions) %>%
-      top_n(., 10)
+      arrange(-Prescriptions) %>% 
+      select(ATC, `Drug substance`, Prescriptions, percentage) %>%
+      head(., 10)
 
     plot_ly(data2,
             x = ~Prescriptions, y = ~ATC,
+            text = ~percentage,
             type = 'bar',
             orientation = 'h',
             marker = list(color = 'rgb(158,202,225)',
                           line = list(color = 'rgb(8,48,107)',
                                       width = 1)
-            )
+                          ),
+            texttemplate = '%{text}',
+            textposition = 'outside',
+            textfont = list(color = 'rgb(8,48,107)', size = 11)
     ) %>%
-    layout(title = paste0('Top 10 prescriptions T1-T3 to treat ', input$top, ' conditions'),
+    layout(title = paste0('Top 10 prescribed substances during pregnancy to treat ', input$top, ' conditions'),
              xaxis = list(title = ""),
              yaxis = list(title = "", categoryorder = "total ascending"),
              margin = list(l = 70, r = 60, t = 80, b = 90, pad = 8)#,
@@ -254,7 +211,7 @@ server <- function(input, output) {
       ) %>%
       add_annotations(xref = 'paper', yref = 'paper',
                       x = 0, y = -0.38,
-                      text = paste('Source: Gerbier et al. 2021. Numbers represent extrapolations for the whole of Switzerland.'),
+                      text = paste('Source: Gerbier et al. 2021, 2021. Numbers represent extrapolations for the whole of Switzerland.'),
                       font = list(size = 10, color = 'rgb(150,150,150)'),
                       showarrow = FALSE)
   })
@@ -263,21 +220,35 @@ server <- function(input, output) {
   # ----------------------------- Plot 2 -------------------------------------
   output$barPlot2 <- renderPlotly({
 
-    data <- d.acute.chronic %>% filter(Time != 'T1-T3' & ATC == input$ATC)
+    data <- d.acute.chronic %>% 
+      filter(Time != 'T1-T3' & ATC == input$ATC) %>% 
+      mutate(percent = paste0(round(100*(Prescriptions/Total_pregnancies), 0), '%')
+            )
     drug <- unique(data$`Drug substance`)
 
-    fig <- plot_ly(data, x = ~Time, y = ~Prescriptions, type = 'bar',
+    fig <- plot_ly(data, x = ~Time, y = ~Prescriptions, 
+                   text = ~percent, 
+                   type = 'bar',
                    marker = list(color = 'rgb(158,202,225)',
                                  line = list(color = 'rgb(8,48,107)',
-                                             width = 1.5)))
-    
+                                             width = 1.5)),
+                   texttemplate = '%{text}',
+                   textposition = 'outside',
+                   textfont = list(color = 'rgb(8,48,107)', size = 11
+                   )
+    )
     fig %>% layout(#title = paste0(drug, ' (', input$ATC, ") prescriptions during pregnancy"),
-                   xaxis = list(title = "Time pregnancy"),
-                   yaxis = list(title = "No. of prescriptions"),
-                   margin = list(l = 70, r = 60, t = 50, b = 90, pad = 8)#,
+                   xaxis = list(title = "time before/ during pregnancy"),
+                   yaxis = list(title = "No. of pregnancies with ≥ 1 prescr."),
+                   margin = list(l = 70, r = 60, t = 80, b = 90, pad = 8)#,
                    #paper_bgcolor = 'rgba(0, 0, 0, 0.03)', # rgb(248, 248, 255)
                    #plot_bgcolor = 'rgba(0, 0, 0, 0)'
-                  )
+                  ) %>%
+      add_annotations(xref = 'paper', yref = 'paper',
+                      x = 0, y = -0.38,
+                      text = paste('Source: Gerbier et al. 2021, 2021. Numbers represent extrapolations for the whole of Switzerland.'),
+                      font = list(size = 10, color = 'rgb(150,150,150)'),
+                      showarrow = FALSE)
 
   })
   
@@ -292,7 +263,11 @@ server <- function(input, output) {
   output$prescr <-  renderText({
                               d.acute.chronic %>%
                                 filter(Time == 'T1-T3' & ATC == input$ATC) %>%
-                                pull(Prescriptions) %>% unique()
+                                mutate(percent = round(100* (Prescriptions/Total_pregnancies), 0), 
+                                       prescr = paste0(Prescriptions, ' (', percent, '% of pregnancies)')) %>% 
+                                pull(prescr) %>% unique()
+    
+    
                          })
   
 
