@@ -13,8 +13,8 @@ ui <- dashboardPage(
       menuItem("Motivation", tabName = "Motivation", icon = icon(name="star", lib="glyphicon")),
       menuItem("Coding", tabName = "Coding", icon = icon(name="console", lib="glyphicon"),
                menuSubItem("Challenge", tabName = "Challenge"),
-               menuSubItem("Results", tabName = "Output"),
-               menuSubItem("Source code", tabName = "Source_code") 
+               menuSubItem("Results", tabName = "Output")#,
+               #menuSubItem("Source code", tabName = "Source_code") 
               )
     )
   ),
@@ -93,7 +93,7 @@ ui <- dashboardPage(
                 
                 column(12,
                        box(width = 12, collapsible = TRUE, collapsed = TRUE,
-                           title = h3('Organization', align = 'center'),
+                           title = h3('Roche', align = 'center'),
                            
                            column(4, 
                                   fluidRow(align = 'center',img(src='Bild4.png')),
@@ -129,8 +129,9 @@ ui <- dashboardPage(
                            fluidRow( 
                              tags$div(
                                tags$ul(
+                                 # influence medial practice
                                  tags$li("Being at the pulse of medical progress"),  
-                                 tags$li("Medication"),  
+                                 tags$li("Drug development"),  
                                  # something which fascinates me, very often we thinking to easy of it (we take it and it works),
                                  # but its so much more complex than that, thinking of interactions with other medication,
                                  # taking them too long, or in case of certain comorbidities 
@@ -188,9 +189,10 @@ ui <- dashboardPage(
                                tags$ul(
                                  tags$li("generating data driven insights"),
                                  tags$li("analytical challenges & problem solving"),
-                                 tags$li("continuous learning"),
+                                 tags$li("breaking down complex information into easy-to-understand content"),
                                  tags$li("balance between theory and practice"),
-                                 tags$li("breaking down complex information into easy-to-understand content")
+                                 tags$li("continuous learning")
+                                 
                                )
                              )
                            )
@@ -438,12 +440,12 @@ ui <- dashboardPage(
                        )
              #  
              )
-          ),
+          )#,
       
       
       
       # ------------------------------------------------------------------------
-      tabItem("Source_code", h2("Source code content"))
+      #tabItem("Source_code", h2("Source code content"))
     
       
       

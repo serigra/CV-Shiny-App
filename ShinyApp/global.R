@@ -132,8 +132,8 @@ userbox <- function(){
       tags$hr(), # -------------------------------------------------------------
       
       fluidRow(column(width = 12,
-                      "initiative · proactive · creative · curious
-                      · exact · passionate · integer · social · empathic"
+                      "initiative · proactive · curious · creative  
+                      · exact · passionate · social · empathic · integer"
               # I am a data scientist and part of the health services research 
               #  team of one of the biggest health insurance companies in Switzerland. 
               #  I am a biostatistician and biologist by training. 
