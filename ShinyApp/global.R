@@ -148,15 +148,15 @@ userbox <- function(){
       
       fluidRow(
  
-        column(width = 3,
-               shiny::actionButton(inputId='ab1', label="",
-                                   icon = icon("globe"), 
-                                   style="color: #fff; background-color: #337ab7; border-color: #2e6da4",
-                                   onclick = "location.href='https://github.com/serigra';"
-               )
-        ),
+        # column(width = 3,
+        #        shiny::actionButton(inputId='ab1', label="",
+        #                            icon = icon("globe"), 
+        #                            style="color: #fff; background-color: #337ab7; border-color: #2e6da4",
+        #                            onclick = "location.href='https://github.com/serigra';"
+        #        )
+        # ),
         
-        column(width = 3,
+        column(width = 4,
         shiny::actionButton(inputId='ab1', label="", 
                             icon = icon("github"), 
                             style="color: #fff; background-color: #337ab7; border-color: #2e6da4",
@@ -164,7 +164,7 @@ userbox <- function(){
                             )
         ),
         
-        column(width = 3,
+        column(width = 4,
           shiny::actionButton(inputId='ab1', label="", 
                               icon = icon("linkedin"), 
                               style="color: #fff; background-color: #337ab7; border-color: #2e6da4",
@@ -172,7 +172,7 @@ userbox <- function(){
                               )
           ),
         
-        column(width = 3,
+        column(width = 4,
                shiny::actionButton(inputId='ab1', label="", 
                                    icon = icon("researchgate"), 
                                    style="color: #fff; background-color: #337ab7; border-color: #2e6da4",

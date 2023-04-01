@@ -93,7 +93,7 @@ ui <- dashboardPage(
                 
                 column(12,
                        box(width = 12, collapsible = TRUE, collapsed = TRUE,
-                           title = h3('Roche', align = 'center'),
+                           title = h3('Organization', align = 'center'),
                            
                            column(4, 
                                   fluidRow(align = 'center',img(src='Bild4.png')),
