@@ -7,3 +7,7 @@ Presentation of CV in form of a Shiny application.
 
 ### Motivation
 ![](motivation.png)
+
+
+### Coding
+![](coding.png)
