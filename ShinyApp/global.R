@@ -11,10 +11,10 @@ library(plotly)
 #                        DATA for Programming Challenge
 # ==============================================================================
 
-load('/Users/sereina/Documents/03_Projects/04_Interviews/02_Roche/CV Shiny App/data_embryotox.Rda')
+load('/Users/sereina/Documents/03_Projects/11_CV_Shiny_App/data/data_embryotox.Rda')
 
-d.acute <- readxl::read_xlsx('/Users/sereina/Documents/03_Projects/04_Interviews/02_Roche/CV Shiny App/Test_data.xlsx', sheet = 'acute')
-d.chronic <- readxl::read_xlsx('/Users/sereina/Documents/03_Projects/04_Interviews/02_Roche/CV Shiny App/Test_data.xlsx', sheet = 'chronic')
+d.acute <- readxl::read_xlsx('/Users/sereina/Documents/03_Projects/11_CV_Shiny_App/data/Test_data.xlsx', sheet = 'acute')
+d.chronic <- readxl::read_xlsx('/Users/sereina/Documents/03_Projects/11_CV_Shiny_App/data/Test_data.xlsx', sheet = 'chronic')
 
 d.chronic %<>%
   filter(!is.na(ATC)) %>%
@@ -125,8 +125,8 @@ userbox <- function(){
       
       tags$hr(), # -------------------------------------------------------------
       
-      p(icon("pagelines"), "36"),
-      p(icon("location-dot"), "Zurich"),
+      p(icon("pagelines"), year(today()) - 1986),
+      p(icon("location-dot"), "Zurich, Switzerland"),
       p(icon("heart"), "programming, visualizing, outdooring & Suky"),
       
       tags$hr(), # -------------------------------------------------------------
@@ -147,40 +147,56 @@ userbox <- function(){
       fluidRow(column(width = 12, p('Links'))),
       
       fluidRow(
- 
-        # column(width = 3,
-        #        shiny::actionButton(inputId='ab1', label="",
-        #                            icon = icon("globe"), 
-        #                            style="color: #fff; background-color: #337ab7; border-color: #2e6da4",
-        #                            onclick = "location.href='https://github.com/serigra';"
-        #        )
-        # ),
         
-        column(width = 4,
-        shiny::actionButton(inputId='ab1', label="", 
+        # Link Wegpage
+        column(width = 2,
+               shinyWidgets::circleButton(inputId='ab1', label="", 
+                                   icon = icon("globe"), 
+                                   size = 'sm',
+                                   style="color: #fff; background-color: #337ab7; border-color: #2e6da4",
+                                   onclick = "location.href='https://serigra.github.io/Webpage_Quarto/';"
+               )
+        ),
+        
+        # Link GitHub
+        column(width = 2,
+               shinyWidgets::circleButton(inputId='ab1', label="", 
                             icon = icon("github"), 
+                            size = 'sm',
                             style="color: #fff; background-color: #337ab7; border-color: #2e6da4",
                             onclick = "location.href='https://github.com/serigra';"
                             )
         ),
         
-        column(width = 4,
-          shiny::actionButton(inputId='ab1', label="", 
+        # Link LinkedIn
+        column(width = 2,
+               shinyWidgets::circleButton(inputId='ab1', label="", 
                               icon = icon("linkedin"), 
+                              size = 'sm',
                               style="color: #fff; background-color: #337ab7; border-color: #2e6da4",
                               onclick = "location.href='https://www.linkedin.com/in/sereina-maria-graber-078701bb/';"
                               )
           ),
         
-        column(width = 4,
-               shiny::actionButton(inputId='ab1', label="", 
+        # Link ResearchGate
+        column(width = 2,
+               shinyWidgets::circleButton(inputId='ab1', label="", 
                                    icon = icon("researchgate"), 
+                                   size = 'sm',
                                    style="color: #fff; background-color: #337ab7; border-color: #2e6da4",
                                    onclick = "location.href='https://www.researchgate.net/profile/Sereina-Graber/research';"
-               )
-    
-               )
+                                   )
+               ),
         
+        
+        column(width = 2,
+               shinyWidgets::circleButton(inputId='ab1', label="", 
+                                   icon = icon("orcid"), 
+                                   size = 'sm',
+                                   style="color: #fff; background-color: #337ab7; border-color: #2e6da4",
+                                   onclick = "location.href='https://orcid.org/0009-0005-2128-0827';"
+               )
+        )
       )
       
       )
@@ -321,8 +337,8 @@ cv_plot <- function(){
 # data
 scores <- data.frame(
   row.names = c("Sereina"),
-  R = c(5), RShiny = c(3.5), Python = c(2),
-  SQL = c(4), LaTex = c(3), Git = c(3.5),
+  R = c(5), RShiny = c(4), Python = c(2),
+  SQL = c(5), LaTex = c(3), Git = c(4),
   Bash_Shell = c(2), SPSS = c(2), SAS = c(0), MSOffice = c(4)
 )
 
@@ -361,7 +377,7 @@ spider_plot_tech <- function(){
 scores <- data.frame(
   row.names = c("Sereina"),
   LM = c(5), GLM = c(4), GLMM = c(3), GEE = c(3),
-  RF = c(2), Survival = c(2), PSM = c(3.5)
+  RF = c(2), Survival = c(3), PSM = c(4)
 )
 
 max_min <- data.frame(

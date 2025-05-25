@@ -11,7 +11,7 @@ ui <- dashboardPage(
       # icons: https://getbootstrap.com/docs/3.3/components/#glyphicons
       menuItem("About", tabName = "About", icon = icon("user", lib="glyphicon")),
       menuItem("Motivation", tabName = "Motivation", icon = icon(name="star", lib="glyphicon")),
-      menuItem("Coding", tabName = "Coding", icon = icon(name="console", lib="glyphicon"),
+      menuItem("Coding Example", tabName = "Coding Example", icon = icon(name="console", lib="glyphicon"),
                menuSubItem("Challenge", tabName = "Challenge"),
                menuSubItem("Results", tabName = "Output")#,
                #menuSubItem("Source code", tabName = "Source_code") 
@@ -97,7 +97,7 @@ ui <- dashboardPage(
                            
                            column(4, 
                                   fluidRow(align = 'center',img(src='Bild4.png')),
-                                  br(),p("Commitment to patients.", align = 'center')
+                                  br(),p("Commitment to health care.", align = 'center')
                            ),
                            column(4, 
                                   fluidRow(align = 'center',img(src='Bild5.png')),
@@ -119,7 +119,7 @@ ui <- dashboardPage(
                 # ========================= Impact on patients ========================
                 column(4, 
                        box(width = NULL, height = 600, collapsible = TRUE, collapsed = TRUE,
-                           title = h3('Impact on patients', align = 'center'),
+                           title = h3('Impact on health care', align = 'center'),
                            fluidRow(align = 'center',img(src='Bild1.png')),
                            p("Making a difference in peoples' lives.", align = 'center'),
                            # Doing what patients need next.
@@ -130,14 +130,14 @@ ui <- dashboardPage(
                              tags$div(
                                tags$ul(
                                  # influence medial practice
-                                 tags$li("Being at the pulse of medical progress"),  
-                                 tags$li("Drug development"),  
+                                 tags$li("Being at the pulse of medical progress")#,  
+                                 #tags$li("Drug development"),  
                                  # something which fascinates me, very often we thinking to easy of it (we take it and it works),
                                  # but its so much more complex than that, thinking of interactions with other medication,
                                  # taking them too long, or in case of certain comorbidities 
                                  # not for every person the medication has the same effect, 
                                  # being able to contribute to the challenge of finding medicaiton that fits all 
-                                 tags$li("Oncology") 
+                                 #tags$li("Oncology") 
                                  # kind of scary disease, already as a child this had like a big effect on me, since its so common, 
                                  # and often being patients are being exposed helplessly, and also being able to actively do smth against 
                                  # that I imagine to be very fulfilling, feeling less helplessly exposed
