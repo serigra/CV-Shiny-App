@@ -7,14 +7,16 @@ library(magrittr)
 library(fmsb) # radarchart / spider-plot
 library(plotly)
 
+# deploy app on shinyapps.io
+#library(rsconnect)
+#rsconnect::deployApp('/Users/sereina/Documents/03_Projects/11_CV_Shiny_App/ShinyApp')
+
 # ==============================================================================
 #                        DATA for Programming Challenge
 # ==============================================================================
-
-load('/Users/sereina/Documents/03_Projects/11_CV_Shiny_App/data/data_embryotox.Rda')
-
-d.acute <- readxl::read_xlsx('/Users/sereina/Documents/03_Projects/11_CV_Shiny_App/data/Test_data.xlsx', sheet = 'acute')
-d.chronic <- readxl::read_xlsx('/Users/sereina/Documents/03_Projects/11_CV_Shiny_App/data/Test_data.xlsx', sheet = 'chronic')
+load('data/data_embryotox.Rda')
+d.acute <- readxl::read_xlsx('data/Test_data.xlsx', sheet = 'acute')
+d.chronic <- readxl::read_xlsx('data/Test_data.xlsx', sheet = 'chronic')
 
 d.chronic %<>%
   filter(!is.na(ATC)) %>%
